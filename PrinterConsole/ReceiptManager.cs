@@ -1,4 +1,6 @@
-﻿namespace PrinterConsole;
+﻿using PrinterConsole.Printers;
+
+namespace PrinterConsole;
 internal class ReceiptManager
 {
     private readonly IReceiptConstants receiptConstants;

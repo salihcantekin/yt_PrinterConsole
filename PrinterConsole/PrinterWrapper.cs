@@ -1,10 +1,26 @@
-﻿
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using PrinterConsole.Printers;
+
 namespace PrinterConsole;
-internal class MicrosoftPosPrinter
+internal class PrinterWrapper
 {
+    private BasePosPrinter printer;
+
+
+    public void SetupPrinter(string posPrinterType)
+    {
+        printer = PosPrinterFactory.Create(posPrinterType);
+    }
+    
+
     public void Print(string printData)
     {
         // actual printing logic in SDK
+        printer.Print(printData);
     }
 
 
@@ -28,17 +44,4 @@ internal class MicrosoftPosPrinter
 
     }
     public void Close() { }
-
-
-}
-
-
-
-
-
-
-// From SDK
-internal class MicrosoftPosExplorer
-{
-    public static T CreatePrinterInstance<T>() => Activator.CreateInstance<T>();
 }
