@@ -1,8 +1,8 @@
 ﻿namespace PrinterConsole;
-internal class ReceiptConstants : IReceiptConstants
+public class ReceiptConstants : IReceiptConstants
 {
     public string Left { get; set; } = "";
-    public string Right { get; set; } = "";  
+    public string Right { get; set; } = "";
     public string Center { get; set; } = "";
     public string Bold { get; set; } = "";
     public string Underline { get; set; } = "";
@@ -13,7 +13,7 @@ internal class ReceiptConstants : IReceiptConstants
     public string PrintAndNewLine { get; set; } = "";
 }
 
-internal interface IReceiptConstants
+public interface IReceiptConstants
 {
     string Left { get; set; }
     string Right { get; set; }

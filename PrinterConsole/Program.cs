@@ -13,6 +13,6 @@ var transaction = new Transaction()
 };
 
 
-ReceiptManager manager = new(new ReceiptConstants());
+ReceiptManager manager = new(new ReceiptConstants(), configuration: null, logger: null);
 
 manager.PrintReceipt(transaction);

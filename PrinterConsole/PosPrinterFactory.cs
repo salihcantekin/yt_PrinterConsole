@@ -1,22 +1,22 @@
-﻿using PrinterConsole.Printers;
+﻿using Microsoft.Extensions.Logging;
+using PrinterConsole.PrinterFactories;
 namespace PrinterConsole;
 
-internal class PosPrinterFactory
+public class PosPrinterFactory
 {
-    internal static BasePosPrinter Create(string posPrinterType)
+    public static BasePosPrinterFactory CreatePosPrinterFactory(ILogger logger, IReceiptConstants receiptConstants, string posPrinterType)
     {
         return posPrinterType switch
         {
-            nameof(PosPrinterType.Star) => new StarPosPrinter(),
-            nameof(PosPrinterType.Hp) => new HpPosPrinter(),
-            nameof(PosPrinterType.Epson) => new EpsonPosPrinter(),
+            nameof(PosPrinterType.Star) => new StarPosPrinterFactory(logger, receiptConstants),
+            nameof(PosPrinterType.Hp) => new HpPosPrinterFactory(logger, receiptConstants),
+            nameof(PosPrinterType.Epson) => new EpsonPosPrinterFactory(logger),
             _ => throw new ArgumentException("Invalid printer type"),
         };
     }
-
 }
 
-internal enum PosPrinterType
+public enum PosPrinterType
 {
     Epson,
     Star,

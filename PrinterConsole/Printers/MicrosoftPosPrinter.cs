@@ -1,5 +1,5 @@
 ﻿namespace PrinterConsole.Printers;
-internal class MicrosoftPosPrinter
+public class MicrosoftPosPrinter
 {
     public void Print(string printData)
     {
@@ -26,9 +26,10 @@ internal class MicrosoftPosPrinter
     {
 
     }
+
     public void Close() { }
 
-
+    public List<int> CharacterSetList { get; set; } = new();
 }
 
 
@@ -37,7 +38,7 @@ internal class MicrosoftPosPrinter
 
 
 // From SDK
-internal class MicrosoftPosExplorer
+public class MicrosoftPosExplorer
 {
     public static MicrosoftPosPrinter CreatePrinterInstance(string posPrinterName)
     {

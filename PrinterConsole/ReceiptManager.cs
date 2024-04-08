@@ -1,28 +1,34 @@
-﻿using PrinterConsole.Printers;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
+using PrinterConsole.Printers;
 
 namespace PrinterConsole;
-internal class ReceiptManager
+public class ReceiptManager
 {
     private readonly IReceiptConstants receiptConstants;
-    private readonly MicrosoftPosPrinter printer;
+    private readonly BasePosPrinter printerWrapper;
 
-    public ReceiptManager(IReceiptConstants receiptConstants)
+    public ReceiptManager(IReceiptConstants receiptConstants, IConfiguration configuration, ILogger logger)
     {
+        string printerType = configuration["PrinterType"];
         this.receiptConstants = receiptConstants;
-        printer = MicrosoftPosExplorer.CreatePrinterInstance<MicrosoftPosPrinter>();
+
+        printerWrapper = PosPrinterFactory
+                            .CreatePosPrinterFactory(logger, receiptConstants, printerType)
+                            .Create();
     }
 
 
-    internal void PrintReceipt(Transaction transaction)
+    public void PrintReceipt(Transaction transaction)
     {
         string printData = GenerateReceiptData(transaction);
 
-        printer.Print(printData);
+        printerWrapper.PrintWithProcessors(printData);
     }
 
 
 
-    internal string GenerateReceiptData(Transaction transaction)
+    public string GenerateReceiptData(Transaction transaction)
     {
         string printData = $"""
             {receiptConstants.Left}TECH BUDDY LTD

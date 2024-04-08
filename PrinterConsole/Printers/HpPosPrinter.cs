@@ -1,10 +1,19 @@
-﻿namespace PrinterConsole.Printers;
+﻿using Microsoft.Extensions.Logging;
 
-internal class HpPosPrinter : BasePosPrinter
+namespace PrinterConsole.Printers;
+
+public class HpPosPrinter(ILogger logger) : BasePosPrinter(logger)
 {
-    public override void Configure(IReceiptConstants receiptConstants)
+    public override void ConfigurePrinterWithDefaults()
     {
-        PosPrinter.PrintableAreaWidth = 44;
-        PosPrinter.CharacterSet = 1252;
+        base.ConfigurePrinterWithDefaults();
+
+        var printer = GetPrinter();
+
+        var charSet = printer.CharacterSetList?.FirstOrDefault(i => i == PosPrinterConstants.Common.CHARSET);
+
+        if (charSet != null && charSet != printer.CharacterSet)
+            printer.CharacterSet = charSet.Value;
     }
+
 }

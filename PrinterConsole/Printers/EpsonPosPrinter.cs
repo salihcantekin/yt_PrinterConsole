@@ -1,16 +1,6 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Logging;
 
 namespace PrinterConsole.Printers;
-internal class EpsonPosPrinter : BasePosPrinter
+public class EpsonPosPrinter(ILogger logger) : BasePosPrinter(logger)
 {
-    internal EpsonPosPrinter(IConfiguration configuration)
-        : base(configuration["PosPrinterName"])
-    {
-    }
-
-    public override void Configure(IReceiptConstants receiptConstants)
-    {
-        PosPrinter.PrintableAreaWidth = 45;
-        PosPrinter.CharacterSet = 1252;
-    }
 }
