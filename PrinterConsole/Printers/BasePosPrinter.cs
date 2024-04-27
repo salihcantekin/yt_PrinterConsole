@@ -30,7 +30,7 @@ public abstract class BasePosPrinter(ILogger logger)
     {
         ExecutePostProcessors(ref printData);
 
-        printer.Print(printData);
+       
     }
 
     public BasePosPrinter SetReceiptLineWidth(int width)

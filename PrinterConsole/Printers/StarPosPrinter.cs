@@ -9,7 +9,6 @@ public class StarPosPrinter(ILogger logger) : BasePosPrinter(logger)
         base.ConfigurePrinterWithDefaults();
 
         var printer = GetPrinter();
-        printer.PrintableAreaWidth = PosPrinterConstants.Star.RECEIPT_WIDTH;
 
         var charSet = printer.CharacterSetList?.FirstOrDefault(i => i == PosPrinterConstants.Common.CHARSET);
 
